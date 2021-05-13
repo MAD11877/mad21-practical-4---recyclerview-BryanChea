@@ -1,4 +1,4 @@
-package sg.edu.np.week4activity;
+package sg.edu.np.practical4;
 
 import org.junit.Test;
 
