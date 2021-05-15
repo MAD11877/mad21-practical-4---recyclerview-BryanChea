@@ -16,6 +16,6 @@ public class ProfileViewHolder extends RecyclerView.ViewHolder {
         super(item);
         t1 = item.findViewById(R.id.textView2);
         t2 = item.findViewById(R.id.textView4);
-        img = item.findViewById(R.id.imageView2);//Integer.valueOf(String.valueOf(t1).substring(4)));
+        img = item.findViewById(R.id.imageView2);
     }
 }

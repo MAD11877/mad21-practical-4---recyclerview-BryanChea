@@ -19,85 +19,31 @@ import java.util.Random;
 
 public class ListActivity extends AppCompatActivity {
     private final String TAG = "Create Activity";
+    public static ArrayList<User> myUsers;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-
-        ArrayList<User> myUsers = new ArrayList<>();
+        myUsers = new ArrayList<User>();
         User user;
         String name;
         String desc;
-        int nameInt = 0;
         Random rand = new Random();
         for (int i = 0; i < 20; i++) {
             name = "Name";
             desc = "Description ";
-            nameInt = rand.nextInt();
-            name += String.valueOf(nameInt);
+            name += String.valueOf(rand.nextInt());
             desc += String.valueOf(rand.nextInt());
-            user = new User(nameInt, name, desc, rand.nextBoolean());
+            user = new User(name, desc, rand.nextBoolean());
             myUsers.add(user);
         }
 
         RecyclerView rv = findViewById(R.id.rv);
-        ProfileAdaptor pa = new ProfileAdaptor(myUsers);
+        ProfileAdaptor pa = new ProfileAdaptor(myUsers, this);
         LinearLayoutManager lm = new LinearLayoutManager(this);
         rv.setLayoutManager(lm);
         rv.setItemAnimator(new DefaultItemAnimator());
         rv.setAdapter(pa);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Profile");
-        builder.setCancelable(false);
-
-        builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-
-        ImageView img = findViewById(nameInt);
-
-        img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                builder.setMessage("RIP");
-                builder.setPositiveButton("View", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(ListActivity.this, MainActivity.class);
-                        startActivity(intent);
-                    }
-                });
-                AlertDialog alert = builder.create();
-                alert.show();
-            }
-        });
     }
-/*
-        for (User u : myUsers) {
-            findViewById(u.getImageID()).setOnClickListener(new View.OnClickListener(){
-
-                @Override
-                public void onClick(View v) {
-                    builder.setMessage(u.getName());
-                    builder.setPositiveButton("View", new DialogInterface.OnClickListener() {
-
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(ListActivity.this, MainActivity.class);
-                            intent.putExtra("User", u);
-                            startActivity(intent);
-                        }
-                    });
-                    AlertDialog alert = builder.create();
-                    alert.show();
-                }
-            });
-        }
-        Log.v(TAG, "b");
-    }*/
 }
